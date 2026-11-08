@@ -32,8 +32,12 @@
 
   header.hero{background:var(--cream);color:var(--ink);padding:36px 0 40px}
   .stripe{height:10px;background:linear-gradient(90deg,var(--blue) 0 25%,var(--gold) 25% 50%,var(--green) 50% 75%,var(--red) 75%)}
-  .hero-grid{display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
-  @media (min-width:820px){ .hero-grid{grid-template-columns:1.2fr .8fr;gap:40px} }
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:center}
+  @media (min-width:820px){ .hero-grid{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px} }
+  .qr-box{display:flex;gap:14px;align-items:center;margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;width:max-content;max-width:100%}
+  .qr-box img{width:140px;height:140px;display:block}
+  .qr-box strong{display:block;font-size:17px;color:var(--ink)}
+  .qr-box span{font-size:14px;color:var(--muted);overflow-wrap:anywhere}
   .hero-img{width:100%;height:auto;aspect-ratio:1/1;max-width:440px;justify-self:center;align-self:center;object-fit:contain;border-radius:18px;box-shadow:0 14px 36px rgba(20,33,90,.18);display:block}
   .eyebrow{letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--red);font-weight:700;margin:0 0 8px}
   h1{font-size:clamp(26px,4.4vw,40px);line-height:1.15;margin:0 0 10px}
@@ -144,11 +148,17 @@
       <p>Programa, integrantes y enlaces a la presentación y al video de soporte de cada equipo. Cada pitch dura 2 minutos.</p>
       <div class="meta">
         <span class="pill">📅 Lunes 9 de noviembre de 2026</span>
-        <span class="pill" id="pill-count">7 equipos</span>
         <span class="pill">⏱ 2 minutos por equipo</span>
       </div>
       <div class="actions">
         <button class="btn primary" id="start-first" type="button">▶ Iniciar modo presentación</button>
+      </div>
+      <div class="qr-box">
+        <img src="images/qr-pagina.svg" width="140" height="140" alt="Código QR para abrir la página: https://maryics.github.io/LSBS_CANOAS/">
+        <div>
+          <strong>Escanea para ver la página</strong>
+          <span>maryics.github.io/LSBS_CANOAS</span>
+        </div>
       </div>
     </div>
     <img class="hero-img" src="images/afiche-congreso.webp" width="1206" height="1206"
@@ -273,7 +283,6 @@ const cardHTML = t => `
 grid.innerHTML = TEAMS.filter(t => !t.brasil).map(cardHTML).join('');
 gridBrasil.innerHTML = TEAMS.filter(t => t.brasil).map(cardHTML).join('');
 
-document.getElementById('pill-count').textContent = `${TEAMS.filter(t=>!t.brasil).length} equipos + ${TEAMS.filter(t=>t.brasil).length} de Brasil`;
 document.getElementById('count').textContent = `${TEAMS.filter(t=>!t.brasil).length} equipos seleccionados · orden de presentación`;
 
 /* ============ TEMPORIZADOR ============ */

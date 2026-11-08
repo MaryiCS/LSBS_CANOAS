@@ -49,6 +49,8 @@
   .hero .btn.primary{background:var(--accent);border-color:var(--accent);color:#1b1400}
 
   main{padding:28px 0 80px}
+  .brasil{margin-top:44px;padding-top:28px;border-top:1px solid var(--line)}
+  .brasil h2{font-size:24px;margin:0 0 4px}
   .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:18px}
   .toolbar .count{color:var(--muted);font-size:14px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
@@ -57,7 +59,7 @@
     padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
   .card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .num{font-weight:800;font-size:13px;color:var(--brand-2);letter-spacing:.06em}
-  .num b{font-size:22px;color:var(--ink);letter-spacing:0;margin-left:4px}
+  .num b{font-size:22px;color:var(--ink);letter-spacing:0;margin-left:4px;white-space:nowrap}
   .program{font-size:13px;background:var(--chip);color:var(--brand);border-radius:8px;padding:5px 9px;line-height:1.3}
   .label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 2px}
   .leader{font-size:18px;font-weight:700;margin:0;overflow-wrap:anywhere}
@@ -150,6 +152,12 @@
     <p class="note" style="margin:0">Consejo: usa <strong>▶ Presentar</strong> para proyectar la presentación a pantalla completa con el temporizador arriba.</p>
   </div>
   <section class="grid" id="grid" aria-label="Equipos seleccionados"></section>
+
+  <section class="brasil" aria-labelledby="brasil-h">
+    <h2 id="brasil-h">Equipos de Brasil</h2>
+    <p class="note">Presentación especial. Estos equipos no entregaron video de soporte.</p>
+    <div class="grid" id="grid-brasil" aria-label="Equipos de Brasil" style="margin-top:14px"></div>
+  </section>
 </main>
 
 <footer>
@@ -188,42 +196,49 @@
 /* ============ DATOS ============
    Fuente: confirmación de participación (equipos seleccionados). Sin datos personales de contacto. */
 const TEAMS = [
-  { id:1, programa:"Maestría en Diseño de Experiencia de Usuario - UX",
+  { id:1, etiqueta:"01", programa:"Maestría en Diseño de Experiencia de Usuario - UX",
     lider:"Ricardo Castaneda Vallejo", integrantes:[],
     presentacion:"presentaciones/equipo-01-ricardo-castaneda.pdf", formato:"PDF", video:"https://youtu.be/K5-0XgxII_Y" },
-  { id:2, programa:"Maestría en Administración de Empresas - MBA",
+  { id:2, etiqueta:"02", programa:"Maestría en Administración de Empresas - MBA",
     lider:"Walter Herrera Matamoros", integrantes:[],
     presentacion:"presentaciones/equipo-02-walter-herrera.pdf",
     formato:"PDF", video:"https://youtu.be/4XUl05AP0-o" },
-  { id:3, programa:"Maestría en Finanzas",
+  { id:3, etiqueta:"03", programa:"Maestría en Finanzas",
     lider:"Julián David Cabrera Lugo", integrantes:["María Fernanda Acero Rojas"],
     presentacion:"presentaciones/equipo-03-julian-cabrera.pdf",
     formato:"PDF", video:"https://youtu.be/YLpsgazGJIM" },
-  { id:4, programa:"Maestría en Diseño de Experiencia de Usuario - UX",
+  { id:4, etiqueta:"04", programa:"Maestría en Diseño de Experiencia de Usuario - UX",
     lider:"Carol Milena Suárez", integrantes:["Alexander Romero","David Gomez"],
     presentacion:"presentaciones/equipo-04-carol-suarez.pdf",
     formato:"PDF", video:"https://youtu.be/CnQRaSvskzU" },
-  { id:5, programa:"Maestría en Finanzas",
+  { id:5, etiqueta:"05", programa:"Maestría en Finanzas",
     lider:"Andrés Felipe Alvarez Sierra", integrantes:[],
     presentacion:"presentaciones/equipo-05-andres-alvarez.pdf",
     formato:"PDF", video:null },
-  { id:6, programa:"Maestría en Analítica e Inteligencia de Negocio",
+  { id:6, etiqueta:"06", programa:"Maestría en Analítica e Inteligencia de Negocio",
     lider:"María Camila Jiménez Jiménez", integrantes:["Carlos Damián García Velásquez","Anamaria Hernández González"],
     presentacion:"presentaciones/equipo-06-maria-camila-jimenez.pdf",
     formato:"PDF", video:"https://youtu.be/DBnMQyF8moc" },
-  { id:7, programa:"Maestría en Analítica e Inteligencia de Negocio",
+  { id:7, etiqueta:"07", programa:"Maestría en Analítica e Inteligencia de Negocio",
     lider:"José Manuel Jiménez García", integrantes:[],
-    presentacion:"presentaciones/equipo-07-jose-jimenez.pdf", formato:"PDF", video:"https://www.youtube.com/watch?v=v2RkYF0pd7U" }
+    presentacion:"presentaciones/equipo-07-jose-jimenez.pdf", formato:"PDF", video:"https://www.youtube.com/watch?v=v2RkYF0pd7U" },
+  { id:"BR1", etiqueta:"BR-01", brasil:true, programa:"Maestría en Psicología (Brasil)",
+    lider:"João Vitor Leikermoser Neumann", integrantes:[],
+    presentacion:"presentaciones/brasil-01-joao-neumann.pdf", formato:"PDF", video:null },
+  { id:"BR2", etiqueta:"BR-02", brasil:true, programa:"Pregrado en Ciencia de la Computación (Brasil)",
+    lider:"Gabriel Mazzotti de Souza", integrantes:[],
+    presentacion:"presentaciones/brasil-02-gabriel-mazzotti.pdf", formato:"PDF", video:null }
 ];
 
 /* ============ RENDER: tarjetas ============ */
 const grid = document.getElementById('grid');
+const gridBrasil = document.getElementById('grid-brasil');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-grid.innerHTML = TEAMS.map(t => `
+const cardHTML = t => `
   <article class="card" aria-labelledby="t${t.id}">
     <div class="card-top">
-      <span class="num">EQUIPO <b>${String(t.id).padStart(2,'0')}</b></span>
+      <span class="num">EQUIPO <b>${t.etiqueta}</b></span>
       <span class="program">${esc(t.programa)}</span>
     </div>
     <div>
@@ -241,12 +256,14 @@ grid.innerHTML = TEAMS.map(t => `
       <a class="btn" href="${esc(t.presentacion)}" target="_blank" rel="noopener">📄 Presentación ↗</a>
       ${t.video
         ? `<a class="btn" href="${esc(t.video)}" target="_blank" rel="noopener">🎬 Video ↗</a>`
-        : `<span class="novideo">Video de soporte no entregado</span>`}
+        : (t.brasil ? '' : `<span class="novideo">Video de soporte no entregado</span>`)}
     </div>
-  </article>`).join('');
+  </article>`;
+grid.innerHTML = TEAMS.filter(t => !t.brasil).map(cardHTML).join('');
+gridBrasil.innerHTML = TEAMS.filter(t => t.brasil).map(cardHTML).join('');
 
-document.getElementById('pill-count').textContent = `${TEAMS.length} equipos`;
-document.getElementById('count').textContent = `${TEAMS.length} equipos seleccionados · orden de presentación`;
+document.getElementById('pill-count').textContent = `${TEAMS.filter(t=>!t.brasil).length} equipos + ${TEAMS.filter(t=>t.brasil).length} de Brasil`;
+document.getElementById('count').textContent = `${TEAMS.filter(t=>!t.brasil).length} equipos seleccionados · orden de presentación`;
 
 /* ============ TEMPORIZADOR ============ */
 const DURATION = 120;
@@ -335,7 +352,7 @@ function setTimerContext(ctx){
 }
 function updateTeamUI(){
   const t = TEAMS[currentIdx];
-  teamLabel.textContent = `Equipo ${String(t.id).padStart(2,'0')} · ${t.lider}`;
+  teamLabel.textContent = `Equipo ${t.etiqueta} · ${t.lider}`;
   deck.src = t.presentacion;
   document.getElementById('btn-open').onclick = () => window.open(t.presentacion, '_blank', 'noopener');
   const v = document.getElementById('btn-video');
@@ -389,9 +406,9 @@ document.getElementById('btn-prev').addEventListener('click', () => step(-1));
 document.getElementById('btn-next').addEventListener('click', () => step(1));
 document.getElementById('btn-exit').addEventListener('click', closePresenter);
 document.getElementById('start-first').addEventListener('click', () => openPresenter(0));
-grid.addEventListener('click', e => {
+document.querySelector('main').addEventListener('click', e => {
   const b = e.target.closest('[data-present]');
-  if (b) openPresenter(TEAMS.findIndex(t => t.id === Number(b.dataset.present)));
+  if (b) openPresenter(TEAMS.findIndex(t => String(t.id) === b.dataset.present));
 });
 
 document.addEventListener('keydown', e => {

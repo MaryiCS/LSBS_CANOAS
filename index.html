@@ -7,21 +7,22 @@
 <meta name="description" content="Equipos seleccionados para el pitch del Congreso La Salle Business School: programa, integrantes, presentaciones y videos de soporte.">
 <style>
   :root{
-    --bg:#f4f6fa; --surface:#ffffff; --ink:#0f1b2d; --muted:#5b6777; --line:#dfe4ec;
-    --brand:#0b3a6e; --brand-2:#0f7d74; --accent:#f2a900; --chip:#e8eef7;
+    --bg:#fffaf1; --surface:#ffffff; --ink:#14215a; --muted:#5a6279; --line:#ecdcc0;
+    --blue:#1e14b7; --green:#1a5c1b; --red:#dc0a11; --gold:#f3b10c; --cream:#fef5e7;
+    --brand:#1e14b7; --brand-2:#1a5c1b; --accent:#f3b10c; --chip:#eef0ff;
     --ok:#1f9d55; --warn:#e0a100; --danger:#d62f2f;
     --shadow:0 1px 2px rgba(15,27,45,.06),0 6px 18px rgba(15,27,45,.06);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#0c1320; --surface:#131d2e; --ink:#e8eef8; --muted:#9aa6b8; --line:#243248;
-      --brand:#7fb2ea; --brand-2:#4fd1c5; --accent:#f7c948; --chip:#1c2a40;
+      --bg:#0d1020; --surface:#161a2e; --ink:#eef0ff; --muted:#a6acc9; --line:#2a3050;
+      --cream:#14183a; --brand:#9aa0ff; --brand-2:#6fd07a; --accent:#f3b10c; --chip:#1e2450;
       --shadow:none;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#0c1320; --surface:#131d2e; --ink:#e8eef8; --muted:#9aa6b8; --line:#243248;
-    --brand:#7fb2ea; --brand-2:#4fd1c5; --accent:#f7c948; --chip:#1c2a40; --shadow:none;
+    --bg:#0d1020; --surface:#161a2e; --ink:#eef0ff; --muted:#a6acc9; --line:#2a3050;
+    --cream:#14183a; --brand:#9aa0ff; --brand-2:#6fd07a; --accent:#f3b10c; --chip:#1e2450; --shadow:none;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -29,12 +30,16 @@
   a{color:var(--brand)}
   .wrap{max-width:1120px;margin:0 auto;padding:0 16px}
 
-  header.hero{background:linear-gradient(135deg,#0b3a6e,#0f7d74);color:#fff;padding:48px 0 40px}
-  .eyebrow{letter-spacing:.14em;text-transform:uppercase;font-size:12px;opacity:.85;margin:0 0 8px}
+  header.hero{background:var(--cream);color:var(--ink);padding:36px 0 40px}
+  .stripe{height:10px;background:linear-gradient(90deg,var(--blue) 0 25%,var(--gold) 25% 50%,var(--green) 50% 75%,var(--red) 75%)}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+  @media (min-width:820px){ .hero-grid{grid-template-columns:1.2fr .8fr;gap:40px} }
+  .hero-img{width:100%;height:auto;aspect-ratio:1/1;max-width:440px;justify-self:center;align-self:center;object-fit:contain;border-radius:18px;box-shadow:0 14px 36px rgba(20,33,90,.18);display:block}
+  .eyebrow{letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--red);font-weight:700;margin:0 0 8px}
   h1{font-size:clamp(26px,4.4vw,40px);line-height:1.15;margin:0 0 10px}
-  .hero p{margin:0;max-width:720px;opacity:.92}
+  .hero p{margin:0;max-width:720px;color:var(--muted)}
   .hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
-  .pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 12px;font-size:13px}
+  .pill{background:#fff;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:4px 12px;font-size:13px}
   .hero .actions{margin-top:22px}
 
   .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);
@@ -45,8 +50,8 @@
   .btn.primary:hover{filter:brightness(1.05)}
   .btn.ghost{background:transparent}
   .btn[disabled]{opacity:.5;cursor:not-allowed}
-  .hero .btn{background:#fff;color:#0b3a6e;border-color:#fff}
-  .hero .btn.primary{background:var(--accent);border-color:var(--accent);color:#1b1400}
+  .hero .btn{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .hero .btn.primary{background:var(--gold);border-color:var(--gold);color:#1b1400}
 
   main{padding:28px 0 80px}
   .brasil{margin-top:44px;padding-top:28px;border-top:1px solid var(--line)}
@@ -116,7 +121,7 @@
   #presenter.open ~ .ascii{display:none}
 
   .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-  footer{color:var(--muted);font-size:13px;text-align:center;padding:24px 16px 120px}
+  footer{color:var(--muted);font-size:13px;text-align:center;padding:24px 16px 120px;border-top:0}
 
   @media (max-width:560px){
     #timer{left:10px;right:10px;bottom:10px;min-width:0}
@@ -130,21 +135,27 @@
 </head>
 <body>
 
+<div class="stripe" aria-hidden="true"></div>
 <header class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Congreso La Salle Business School</p>
-    <h1>Pitch de equipos seleccionados</h1>
-    <p>Programa, integrantes y enlaces a la presentación y al video de soporte de cada equipo. Cada pitch dura 2 minutos.</p>
-    <div class="meta">
-      <span class="pill">📅 Lunes 9 de noviembre de 2026</span>
-      <span class="pill" id="pill-count">7 equipos</span>
-      <span class="pill">⏱ 2 minutos por equipo</span>
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">II Congreso · Bogotá – Canoas</p>
+      <h1>Pitch de equipos seleccionados</h1>
+      <p>Programa, integrantes y enlaces a la presentación y al video de soporte de cada equipo. Cada pitch dura 2 minutos.</p>
+      <div class="meta">
+        <span class="pill">📅 Lunes 9 de noviembre de 2026</span>
+        <span class="pill" id="pill-count">7 equipos</span>
+        <span class="pill">⏱ 2 minutos por equipo</span>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="start-first" type="button">▶ Iniciar modo presentación</button>
+      </div>
     </div>
-    <div class="actions">
-      <button class="btn primary" id="start-first" type="button">▶ Iniciar modo presentación</button>
-    </div>
+    <img class="hero-img" src="images/afiche-congreso.webp" width="1206" height="1206"
+         alt="II Congreso La Salle Business School · Bogotá y Canoas · 9 y 10 de noviembre de 2026">
   </div>
 </header>
+<div class="stripe" aria-hidden="true"></div>
 
 <main class="wrap">
   <div class="toolbar">

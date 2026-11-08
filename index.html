@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Congreso La Salle · Pitch de equipos seleccionados</title>
+<meta name="description" content="Equipos seleccionados para el pitch del Congreso La Salle Business School: programa, integrantes, presentaciones y videos de soporte.">
+<style>
+  :root{
+    --bg:#f4f6fa; --surface:#ffffff; --ink:#0f1b2d; --muted:#5b6777; --line:#dfe4ec;
+    --brand:#0b3a6e; --brand-2:#0f7d74; --accent:#f2a900; --chip:#e8eef7;
+    --ok:#1f9d55; --warn:#e0a100; --danger:#d62f2f;
+    --shadow:0 1px 2px rgba(15,27,45,.06),0 6px 18px rgba(15,27,45,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0c1320; --surface:#131d2e; --ink:#e8eef8; --muted:#9aa6b8; --line:#243248;
+      --brand:#7fb2ea; --brand-2:#4fd1c5; --accent:#f7c948; --chip:#1c2a40;
+      --shadow:none;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0c1320; --surface:#131d2e; --ink:#e8eef8; --muted:#9aa6b8; --line:#243248;
+    --brand:#7fb2ea; --brand-2:#4fd1c5; --accent:#f7c948; --chip:#1c2a40; --shadow:none;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+  a{color:var(--brand)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+
+  header.hero{background:linear-gradient(135deg,#0b3a6e,#0f7d74);color:#fff;padding:48px 0 40px}
+  .eyebrow{letter-spacing:.14em;text-transform:uppercase;font-size:12px;opacity:.85;margin:0 0 8px}
+  h1{font-size:clamp(26px,4.4vw,40px);line-height:1.15;margin:0 0 10px}
+  .hero p{margin:0;max-width:720px;opacity:.92}
+  .hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 12px;font-size:13px}
+  .hero .actions{margin-top:22px}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+    border-radius:10px;padding:9px 14px;font:inherit;font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;white-space:nowrap}
+  .btn:hover{border-color:var(--brand)}
+  .btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#1b1400}
+  .btn.primary:hover{filter:brightness(1.05)}
+  .btn.ghost{background:transparent}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .hero .btn{background:#fff;color:#0b3a6e;border-color:#fff}
+  .hero .btn.primary{background:var(--accent);border-color:var(--accent);color:#1b1400}
+
+  main{padding:28px 0 80px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .toolbar .count{color:var(--muted);font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+    padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+  .card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .num{font-weight:800;font-size:13px;color:var(--brand-2);letter-spacing:.06em}
+  .num b{font-size:22px;color:var(--ink);letter-spacing:0;margin-left:4px}
+  .program{font-size:13px;background:var(--chip);color:var(--brand);border-radius:8px;padding:5px 9px;line-height:1.3}
+  .label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 2px}
+  .leader{font-size:18px;font-weight:700;margin:0;overflow-wrap:anywhere}
+  ul.members{margin:0;padding:0;list-style:none;display:grid;gap:4px}
+  ul.members li{overflow-wrap:anywhere}
+  ul.members li::before{content:"· ";color:var(--brand-2);font-weight:900}
+  .none{color:var(--muted);font-size:14px;margin:0}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px}
+  .links .btn{flex:1 1 auto;justify-content:center}
+  .novideo{font-size:13px;color:var(--muted);align-self:center}
+  .note{font-size:13px;color:var(--muted);margin-top:6px}
+
+  /* ---------- Timer (floating / docked) ---------- */
+  #timer{position:fixed;right:18px;bottom:18px;z-index:1000;background:#0b1626;color:#fff;border-radius:16px;
+    box-shadow:0 12px 40px rgba(0,0,0,.35);min-width:210px;user-select:none;touch-action:none;
+    border:1px solid rgba(255,255,255,.12)}
+  #timer .handle{cursor:grab;padding:8px 12px 0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;
+    display:flex;justify-content:space-between;gap:8px;align-items:center}
+  #timer .body{display:flex;align-items:center;gap:10px;padding:6px 12px 12px;flex-wrap:wrap}
+  #timer .clock{font-variant-numeric:tabular-nums;font-weight:800;font-size:44px;line-height:1;letter-spacing:.02em;min-width:2.6em;text-align:center}
+  #timer .ctrls{display:flex;gap:6px;flex-wrap:wrap}
+  #timer button{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:9px;padding:8px 11px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}
+  #timer button:hover{background:rgba(255,255,255,.22)}
+  #timer button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  #timer button.main{background:var(--accent);color:#1b1400}
+  #timer .presenter-only{display:none}
+  #timer.ctx-presenter .presenter-only{display:inline-flex}
+  #timer .team{display:none;font-size:13px;opacity:.9;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:360px}
+  #timer.state-warn .clock{color:#ffd45c}
+  #timer.state-danger .clock{color:#ff7a7a;animation:blink 1s steps(2,start) infinite}
+  #timer.state-done{background:#7a1212}
+  #timer.state-done .clock{animation:blink .6s steps(2,start) infinite}
+  @keyframes blink{to{visibility:hidden}}
+
+  #timer.docked{top:0;left:0;right:0;bottom:auto;border-radius:0;border:0;min-width:0;
+    box-shadow:0 4px 18px rgba(0,0,0,.35);background:#0b1626}
+  #timer.docked .handle{display:none}
+  #timer.docked .body{flex-wrap:nowrap;justify-content:space-between;padding:8px 16px;gap:14px}
+  #timer.docked .clock{font-size:34px}
+  #timer.docked .team{display:block;flex:1 1 auto}
+  #timer.docked .ctrls{flex-wrap:nowrap}
+  #timer.pip{position:static;width:100%;height:100%;min-width:0;border-radius:0;border:0;box-shadow:none;display:flex;flex-direction:column;justify-content:center}
+  #timer.pip .handle{display:none}
+  #timer.pip .body{justify-content:center}
+
+  /* ---------- Presenter ---------- */
+  #presenter{position:fixed;inset:0;z-index:900;background:#000;display:none}
+  #presenter.open{display:block}
+  #presenter iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#111}
+  #presenter .hint{position:absolute;left:12px;bottom:12px;z-index:2;background:rgba(0,0,0,.6);color:#fff;font-size:13px;
+    padding:6px 10px;border-radius:8px;max-width:calc(100% - 24px);pointer-events:none}
+  #presenter.docked iframe{top:var(--bar,64px)}
+  #presenter.docked .hint{bottom:auto;top:calc(var(--bar,64px) + 10px)}
+  #presenter.open ~ .ascii{display:none}
+
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  footer{color:var(--muted);font-size:13px;text-align:center;padding:24px 16px 120px}
+
+  @media (max-width:560px){
+    #timer{left:10px;right:10px;bottom:10px;min-width:0}
+    #timer .clock{font-size:38px}
+    #timer.docked .body{flex-wrap:wrap;gap:8px}
+    #timer.docked .clock{font-size:28px}
+    #timer.docked .team{order:5;flex-basis:100%;max-width:none;white-space:normal}
+  }
+  @media (prefers-reduced-motion: reduce){ #timer.state-danger .clock,#timer.state-done .clock{animation:none} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Congreso La Salle Business School</p>
+    <h1>Pitch de equipos seleccionados</h1>
+    <p>Programa, integrantes y enlaces a la presentación y al video de soporte de cada equipo. Cada pitch dura 2 minutos.</p>
+    <div class="meta">
+      <span class="pill">📅 Lunes 9 de noviembre de 2026</span>
+      <span class="pill" id="pill-count">7 equipos</span>
+      <span class="pill">⏱ 2 minutos por equipo</span>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="start-first" type="button">▶ Iniciar modo presentación</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="toolbar">
+    <p class="count" id="count">Equipos en orden de presentación</p>
+    <p class="note" style="margin:0">Consejo: usa <strong>▶ Presentar</strong> para proyectar la presentación a pantalla completa con el temporizador arriba.</p>
+  </div>
+  <section class="grid" id="grid" aria-label="Equipos seleccionados"></section>
+</main>
+
+<footer>
+  Universidad de La Salle · Congreso La Salle Business School
+</footer>
+
+<!-- Temporizador (flotante / en la parte superior en pantalla completa) -->
+<div id="timer" class="ctx-browse" role="timer" aria-live="off" aria-label="Temporizador de 2 minutos">
+  <div class="handle" id="drag-handle" title="Arrastra para mover">
+    <span>⏱ Temporizador</span>
+    <span id="timer-status" class="sr-only"></span>
+  </div>
+  <div class="body">
+    <span class="team" id="timer-team"></span>
+    <span class="clock" id="clock">2:00</span>
+    <div class="ctrls">
+      <button type="button" class="main" id="btn-toggle" aria-label="Iniciar o pausar">▶ Iniciar</button>
+      <button type="button" id="btn-reset" aria-label="Reiniciar a 2 minutos">↺</button>
+      <button type="button" class="presenter-only" id="btn-prev" aria-label="Equipo anterior" title="Equipo anterior (←)">‹</button>
+      <button type="button" class="presenter-only" id="btn-next" aria-label="Siguiente equipo" title="Siguiente equipo (→)">›</button>
+      <button type="button" class="presenter-only" id="btn-open" title="Abrir la presentación original en otra pestaña">Original ↗</button>
+      <button type="button" class="presenter-only" id="btn-video" title="Ver el video de soporte">Video ↗</button>
+      <button type="button" id="btn-pip" title="Mostrar el temporizador en una ventana flotante" hidden>⧉ Flotante</button>
+      <button type="button" class="presenter-only" id="btn-exit" title="Salir del modo presentación (Esc)">✕ Salir</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modo presentación -->
+<div id="presenter" role="dialog" aria-modal="true" aria-label="Presentación en pantalla completa">
+  <iframe id="deck" title="Presentación del equipo" allow="fullscreen; autoplay"></iframe>
+  <div class="hint" id="hint">Si el documento no aparece, usa «Original ↗» para abrirlo en otra pestaña.</div>
+</div>
+
+<script>
+/* ============ DATOS ============
+   Fuente: confirmación de participación (equipos seleccionados). Sin datos personales de contacto. */
+const TEAMS = [
+  { id:1, programa:"Maestría en Diseño de Experiencia de Usuario - UX",
+    lider:"Ricardo Castaneda Vallejo", integrantes:[],
+    presentacion:"https://unisalleedu-my.sharepoint.com/personal/analiticayemprende_unisalle_edu_co/_layouts/15/Doc.aspx?sourcedoc=%7B30339B7B-DDA4-4F6F-BD2E-5817F15DF416%7D&file=Pitch-Ricardo%20Castaneda%20-%20UX_RICARDO%20CASTANEDA%20VA.pptx&action=edit&mobileredirect=true",
+    formato:"PPT", video:"https://youtu.be/K5-0XgxII_Y" },
+  { id:2, programa:"Maestría en Administración de Empresas - MBA",
+    lider:"Walter Herrera Matamoros", integrantes:[],
+    presentacion:"https://unisalleedu-my.sharepoint.com/personal/analiticayemprende_unisalle_edu_co/Documents/Apps/Microsoft%20Forms/CONFIRMACI%C3%93N%20DE%20PARTICIPACI%C3%93N%20%E2%80%93%20EQUIPOS%20SELECCIONA%201/Sube%20aqu%C3%AD%20tu%20presentaci%C3%B3n%20del%20Pitch%20(PDF%20o%20PPT)/Pitch%20Walter%20Herrera_WALTER%20HERRERA%20MATAM.pdf",
+    formato:"PDF", video:"https://youtu.be/4XUl05AP0-o" },
+  { id:3, programa:"Maestría en Finanzas",
+    lider:"Julián David Cabrera Lugo", integrantes:["María Fernanda Acero Rojas"],
+    presentacion:"https://unisalleedu-my.sharepoint.com/personal/analiticayemprende_unisalle_edu_co/Documents/Apps/Microsoft%20Forms/CONFIRMACI%C3%93N%20DE%20PARTICIPACI%C3%93N%20%E2%80%93%20EQUIPOS%20SELECCIONA%201/Sube%20aqu%C3%AD%20tu%20presentaci%C3%B3n%20del%20Pitch%20(PDF%20o%20PPT)/Presentaci%C3%B3n%20Scoring%20Crediticio%20-%209%20de%20noviem_JULIAN%20DAVID%20CABRERA.pdf",
+    formato:"PDF", video:"https://youtu.be/YLpsgazGJIM" },
+  { id:4, programa:"Maestría en Diseño de Experiencia de Usuario - UX",
+    lider:"Carol Milena Suárez", integrantes:["Alexander Romero","David Gomez"],
+    presentacion:"https://unisalleedu-my.sharepoint.com/personal/analiticayemprende_unisalle_edu_co/Documents/Apps/Microsoft%20Forms/CONFIRMACI%C3%93N%20DE%20PARTICIPACI%C3%93N%20%E2%80%93%20EQUIPOS%20SELECCIONA%201/Sube%20aqu%C3%AD%20tu%20presentaci%C3%B3n%20del%20Pitch%20(PDF%20o%20PPT)/Pitch-Gomez-Romero-Suarez-Logistica-Whatsapp_SUAREZ%20SALGADO%20CAROL.pdf",
+    formato:"PDF", video:"https://youtu.be/CnQRaSvskzU" },
+  { id:5, programa:"Maestría en Finanzas",
+    lider:"Andrés Felipe Alvarez Sierra", integrantes:[],
+    presentacion:"https://unisalleedu-my.sharepoint.com/personal/analiticayemprende_unisalle_edu_co/Documents/Apps/Microsoft%20Forms/CONFIRMACI%C3%93N%20DE%20PARTICIPACI%C3%93N%20%E2%80%93%20EQUIPOS%20SELECCIONA%201/Sube%20aqu%C3%AD%20tu%20presentaci%C3%B3n%20del%20Pitch%20(PDF%20o%20PPT)/Pitch_AFAS_ALVAREZ%20SIERRA%20ANDRE.pdf",
+    formato:"PDF", video:null },
+  { id:6, programa:"Maestría en Analítica e Inteligencia de Negocio",
+    lider:"María Camila Jiménez Jiménez", integrantes:["Carlos Damián García Velásquez","Anamaria Hernández González"],
+    presentacion:"https://unisalleedu-my.sharepoint.com/personal/analiticayemprende_unisalle_edu_co/Documents/Apps/Microsoft%20Forms/CONFIRMACI%C3%93N%20DE%20PARTICIPACI%C3%93N%20%E2%80%93%20EQUIPOS%20SELECCIONA%201/Sube%20aqu%C3%AD%20tu%20presentaci%C3%B3n%20del%20Pitch%20(PDF%20o%20PPT)/Permanencia%20Laboral_HERNANDEZ%20GONZALEZ%20A.pdf",
+    formato:"PDF", video:"https://youtu.be/DBnMQyF8moc" },
+  { id:7, programa:"Maestría en Analítica e Inteligencia de Negocio",
+    lider:"José Manuel Jiménez García", integrantes:[],
+    presentacion:"https://unisalleedu-my.sharepoint.com/personal/analiticayemprende_unisalle_edu_co/_layouts/15/Doc.aspx?sourcedoc=%7BF1AA633D-17E5-4630-9785-949DE6BF05C2%7D&file=Presentacion_Tesis_MIPYMES_SECOP_II_V2_JIMENEZ%20GARCIA%20JOSE.pptx&action=edit&mobileredirect=true",
+    formato:"PPT", video:"https://www.youtube.com/watch?v=v2RkYF0pd7U" }
+];
+
+/* ============ RENDER: tarjetas ============ */
+const grid = document.getElementById('grid');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+grid.innerHTML = TEAMS.map(t => `
+  <article class="card" aria-labelledby="t${t.id}">
+    <div class="card-top">
+      <span class="num">EQUIPO <b>${String(t.id).padStart(2,'0')}</b></span>
+      <span class="program">${esc(t.programa)}</span>
+    </div>
+    <div>
+      <p class="label">Líder del equipo</p>
+      <p class="leader" id="t${t.id}">${esc(t.lider)}</p>
+    </div>
+    <div>
+      <p class="label">Integrantes</p>
+      ${t.integrantes.length
+        ? `<ul class="members">${t.integrantes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>`
+        : `<p class="none">Equipo de una persona</p>`}
+    </div>
+    <div class="links">
+      <button class="btn primary" type="button" data-present="${t.id}">▶ Presentar</button>
+      <a class="btn" href="${esc(t.presentacion)}" target="_blank" rel="noopener">📄 ${t.formato === 'PPT' ? 'PowerPoint' : 'PDF'} ↗</a>
+      ${t.video
+        ? `<a class="btn" href="${esc(t.video)}" target="_blank" rel="noopener">🎬 Video ↗</a>`
+        : `<span class="novideo">Video de soporte no entregado</span>`}
+    </div>
+  </article>`).join('');
+
+document.getElementById('pill-count').textContent = `${TEAMS.length} equipos`;
+document.getElementById('count').textContent = `${TEAMS.length} equipos seleccionados · orden de presentación`;
+
+/* ============ TEMPORIZADOR ============ */
+const DURATION = 120;
+const timerEl = document.getElementById('timer');
+const clockEl = document.getElementById('clock');
+const toggleBtn = document.getElementById('btn-toggle');
+const teamLabel = document.getElementById('timer-team');
+let remaining = DURATION, endAt = 0, running = false, interval = null, audioCtx = null;
+
+function fmt(sec){ const s = Math.ceil(sec); return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`; }
+function render(){
+  clockEl.textContent = fmt(remaining);
+  timerEl.classList.toggle('state-warn', remaining <= 60 && remaining > 15);
+  timerEl.classList.toggle('state-danger', remaining <= 15 && remaining > 0);
+  toggleBtn.innerHTML = running ? '❚❚ Pausar' : (remaining > 0 && remaining < DURATION ? '▶ Seguir' : '▶ Iniciar');
+  toggleBtn.setAttribute('aria-pressed', running ? 'true' : 'false');
+}
+function beep(){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    [0, .45, .9].forEach(d => {
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.frequency.value = 880; g.gain.value = .25;
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(audioCtx.currentTime + d); o.stop(audioCtx.currentTime + d + .3);
+    });
+  }catch(e){}
+}
+function finish(){
+  clearInterval(interval); interval = null; running = false; remaining = 0;
+  timerEl.classList.add('state-done'); render(); beep();
+}
+function start(){
+  if (running) return;
+  if (remaining <= 0) reset();
+  try{ audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)(); audioCtx.resume && audioCtx.resume(); }catch(e){}
+  endAt = Date.now() + remaining*1000; running = true;
+  interval = setInterval(() => {
+    remaining = Math.max(0, (endAt - Date.now())/1000);
+    if (remaining <= 0) return finish();
+    render();
+  }, 200);
+  render();
+}
+function pause(){
+  if (!running) return;
+  remaining = Math.max(0, (endAt - Date.now())/1000);
+  clearInterval(interval); interval = null; running = false; render();
+}
+function reset(){
+  pause(); remaining = DURATION; timerEl.classList.remove('state-done'); render();
+}
+function toggle(){ running ? pause() : start(); }
+
+toggleBtn.addEventListener('click', toggle);
+document.getElementById('btn-reset').addEventListener('click', reset);
+render();
+
+/* Arrastrar cuando está flotante */
+const handle = document.getElementById('drag-handle');
+let drag = null;
+handle.addEventListener('pointerdown', e => {
+  if (timerEl.classList.contains('docked') || timerEl.classList.contains('pip')) return;
+  const r = timerEl.getBoundingClientRect();
+  drag = { dx: e.clientX - r.left, dy: e.clientY - r.top };
+  handle.setPointerCapture(e.pointerId);
+});
+handle.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const w = timerEl.offsetWidth, h = timerEl.offsetHeight;
+  const x = Math.min(Math.max(0, e.clientX - drag.dx), innerWidth - w);
+  const y = Math.min(Math.max(0, e.clientY - drag.dy), innerHeight - h);
+  timerEl.style.left = x + 'px'; timerEl.style.top = y + 'px';
+  timerEl.style.right = 'auto'; timerEl.style.bottom = 'auto';
+});
+handle.addEventListener('pointerup', () => { drag = null; });
+
+/* ============ MODO PRESENTACIÓN ============ */
+const presenter = document.getElementById('presenter');
+const deck = document.getElementById('deck');
+let currentIdx = 0;
+
+function setTimerContext(ctx){
+  timerEl.classList.toggle('ctx-presenter', ctx === 'presenter');
+  timerEl.classList.toggle('ctx-browse', ctx !== 'presenter');
+}
+function updateTeamUI(){
+  const t = TEAMS[currentIdx];
+  teamLabel.textContent = `Equipo ${String(t.id).padStart(2,'0')} · ${t.lider}`;
+  deck.src = t.presentacion;
+  document.getElementById('btn-open').onclick = () => window.open(t.presentacion, '_blank', 'noopener');
+  const v = document.getElementById('btn-video');
+  v.disabled = !t.video;
+  v.onclick = () => t.video && window.open(t.video, '_blank', 'noopener');
+  reset();
+}
+function openPresenter(idx){
+  currentIdx = idx;
+  presenter.classList.add('open');
+  setTimerContext('presenter');
+  updateTeamUI();
+  // pantalla completa: el temporizador se ancla arriba automáticamente
+  const req = document.documentElement.requestFullscreen;
+  if (req && !document.fullscreenElement) { try { req.call(document.documentElement).catch(()=>{}); } catch(e){} }
+  syncDock();
+  document.getElementById('btn-next').focus();
+}
+function closePresenter(){
+  pause();
+  presenter.classList.remove('open','docked');
+  deck.removeAttribute('src');
+  setTimerContext('browse');
+  timerEl.classList.remove('docked');
+  timerEl.style.left = timerEl.style.top = timerEl.style.right = timerEl.style.bottom = '';
+  if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  reset();
+}
+function step(d){
+  currentIdx = (currentIdx + d + TEAMS.length) % TEAMS.length;
+  updateTeamUI();
+}
+function syncDock(){
+  const full = !!document.fullscreenElement && presenter.classList.contains('open');
+  presenter.classList.toggle('docked', full);
+  timerEl.classList.toggle('docked', full);
+  if (full) {
+    timerEl.style.left = timerEl.style.top = timerEl.style.right = timerEl.style.bottom = '';
+    document.documentElement.style.setProperty('--bar', timerEl.offsetHeight + 'px');
+  }
+}
+document.addEventListener('fullscreenchange', () => {
+  syncDock();
+  if (!document.fullscreenElement && presenter.classList.contains('open')) {
+    /* el temporizador vuelve a flotar sobre la presentación */
+    timerEl.style.right = '18px'; timerEl.style.bottom = '18px';
+  }
+});
+
+document.getElementById('btn-prev').addEventListener('click', () => step(-1));
+document.getElementById('btn-next').addEventListener('click', () => step(1));
+document.getElementById('btn-exit').addEventListener('click', closePresenter);
+document.getElementById('start-first').addEventListener('click', () => openPresenter(0));
+grid.addEventListener('click', e => {
+  const b = e.target.closest('[data-present]');
+  if (b) openPresenter(TEAMS.findIndex(t => t.id === Number(b.dataset.present)));
+});
+
+document.addEventListener('keydown', e => {
+  if (e.target.matches && e.target.matches('input,textarea')) return;
+  if (presenter.classList.contains('open')) {
+    if (e.code === 'Space') { e.preventDefault(); toggle(); }
+    else if (e.key === 'r' || e.key === 'R') reset();
+    else if (e.key === 'ArrowRight') step(1);
+    else if (e.key === 'ArrowLeft') step(-1);
+    else if (e.key === 'Escape' && !document.fullscreenElement) closePresenter();
+  } else if (e.code === 'Space' && e.target === document.body) {
+    e.preventDefault(); toggle();
+  }
+});
+
+/* Ventana flotante (Document Picture-in-Picture), si el navegador lo soporta */
+const pipBtn = document.getElementById('btn-pip');
+let pipWin = null;
+if ('documentPictureInPicture' in window) {
+  pipBtn.hidden = false;
+  pipBtn.addEventListener('click', async () => {
+    if (pipWin) { pipWin.focus(); return; }
+    pipWin = await documentPictureInPicture.requestWindow({ width: 340, height: 150 });
+    [...document.styleSheets].forEach(ss => {
+      try {
+        const st = pipWin.document.createElement('style');
+        st.textContent = [...ss.cssRules].map(r => r.cssText).join('');
+        pipWin.document.head.append(st);
+      } catch (e) {}
+    });
+    pipWin.document.body.style.margin = '0';
+    timerEl.classList.add('pip');
+    pipWin.document.body.append(timerEl);
+    pipWin.addEventListener('pagehide', () => {
+      timerEl.classList.remove('pip');
+      document.body.append(timerEl);
+      pipWin = null;
+      syncDock();
+    });
+  });
+}
+</script>
+</body>
+</html>

@@ -129,6 +129,7 @@
   .stars button{background:none;border:0;padding:0 2px;font-size:26px;line-height:1;color:#cfc7b4;cursor:pointer;border-radius:6px}
   .stars button.on{color:var(--gold)}
   .stars button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+  .stars button:disabled{cursor:default}
   .rating.saving .stars button{opacity:.5}
   .rating-sum{margin:0;font-size:13px;color:var(--muted)}
   .rating-mine{margin:0;font-size:13px;color:var(--brand);font-weight:600;min-height:1.2em}
@@ -317,9 +318,11 @@ function setMyRating(k, n){ try { localStorage.setItem('lsbs_rating_' + k, Strin
 function paintStars(box, n){
   box.querySelectorAll('.stars button').forEach((b, i) => b.classList.toggle('on', i < n));
 }
-function showMine(box, n){
+function lockRating(box, n){
+  box.classList.add('done');
+  box.querySelectorAll('.stars button').forEach(b => b.disabled = true);
   paintStars(box, n);
-  box.querySelector('.rating-mine').textContent = n ? `¡Gracias! Tu última calificación: ${'★'.repeat(n)}` : '';
+  box.querySelector('.rating-mine').textContent = n ? `Tu calificación: ${'★'.repeat(n)}` : 'Ya calificaste este proyecto';
 }
 function renderSummary(box, row){
   const sum = box.querySelector('.rating-sum');
@@ -338,7 +341,7 @@ async function loadResumen(){
 }
 async function rate(box, n){
   const k = box.dataset.rating;
-  if (box.classList.contains('saving')) return;
+  if (getMyRating(k) || box.classList.contains('done') || box.classList.contains('saving')) return;
   box.classList.add('saving');
   try {
     const r = await fetch(`${SB_URL}/rest/v1/calificaciones`, {
@@ -346,27 +349,31 @@ async function rate(box, n){
       headers: { ...SB_HEADERS, Prefer: 'return=minimal' },
       body: JSON.stringify({ proyecto_id: k, estrellas: n, cliente_id: getClientId() })
     });
-    if (r.status !== 201) throw new Error('HTTP ' + r.status);
-    setMyRating(k, n);
-    showMine(box, n);
-    await loadResumen();
+    if (r.status === 201) { setMyRating(k, n); lockRating(box, n); await loadResumen(); }
+    else if (r.status === 409) { setMyRating(k, -1); lockRating(box, 0); await loadResumen(); }
+    else throw new Error('HTTP ' + r.status);
   } catch (e) {
     box.querySelector('.rating-sum').textContent = 'No se pudo guardar. Intenta de nuevo.';
   } finally {
     box.classList.remove('saving');
   }
 }
+document.querySelectorAll('.rating').forEach(box => {
+  const mine = getMyRating(box.dataset.rating);
+  if (mine > 0) lockRating(box, mine);
+  else if (mine < 0) lockRating(box, 0);
+});
 document.addEventListener('click', e => {
   const b = e.target.closest('.rating .stars button');
   if (b) rate(b.closest('.rating'), Number(b.dataset.n));
 });
 document.addEventListener('mouseover', e => {
-  const b = e.target.closest('.rating .stars button');
+  const b = e.target.closest('.rating:not(.done) .stars button');
   if (b) paintStars(b.closest('.rating'), Number(b.dataset.n));
 });
 document.addEventListener('mouseout', e => {
-  const box = e.target.closest('.rating');
-  if (box && !e.relatedTarget?.closest?.('.rating')) paintStars(box, getMyRating(box.dataset.rating));
+  const box = e.target.closest('.rating:not(.done)');
+  if (box && !e.relatedTarget?.closest?.('.rating')) paintStars(box, 0);
 });
 loadResumen();
 

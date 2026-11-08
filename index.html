@@ -190,8 +190,7 @@
 const TEAMS = [
   { id:1, programa:"Maestría en Diseño de Experiencia de Usuario - UX",
     lider:"Ricardo Castaneda Vallejo", integrantes:[],
-    presentacion:"https://unisalleedu-my.sharepoint.com/personal/analiticayemprende_unisalle_edu_co/_layouts/15/Doc.aspx?sourcedoc=%7B30339B7B-DDA4-4F6F-BD2E-5817F15DF416%7D&file=Pitch-Ricardo%20Castaneda%20-%20UX_RICARDO%20CASTANEDA%20VA.pptx&action=edit&mobileredirect=true",
-    formato:"PPT", video:"https://youtu.be/K5-0XgxII_Y" },
+    presentacion:"presentaciones/equipo-01-ricardo-castaneda.pdf", original:"presentaciones/equipo-01-ricardo-castaneda.pptx", formato:"PDF", video:"https://youtu.be/K5-0XgxII_Y" },
   { id:2, programa:"Maestría en Administración de Empresas - MBA",
     lider:"Walter Herrera Matamoros", integrantes:[],
     presentacion:"presentaciones/equipo-02-walter-herrera.pdf",
@@ -214,8 +213,7 @@ const TEAMS = [
     formato:"PDF", video:"https://youtu.be/DBnMQyF8moc" },
   { id:7, programa:"Maestría en Analítica e Inteligencia de Negocio",
     lider:"José Manuel Jiménez García", integrantes:[],
-    presentacion:"https://unisalleedu-my.sharepoint.com/personal/analiticayemprende_unisalle_edu_co/_layouts/15/Doc.aspx?sourcedoc=%7BF1AA633D-17E5-4630-9785-949DE6BF05C2%7D&file=Presentacion_Tesis_MIPYMES_SECOP_II_V2_JIMENEZ%20GARCIA%20JOSE.pptx&action=edit&mobileredirect=true",
-    formato:"PPT", video:"https://www.youtube.com/watch?v=v2RkYF0pd7U" }
+    presentacion:"presentaciones/equipo-07-jose-jimenez.pdf", original:"presentaciones/equipo-07-jose-jimenez.pptx", formato:"PDF", video:"https://www.youtube.com/watch?v=v2RkYF0pd7U" }
 ];
 
 /* ============ RENDER: tarjetas ============ */
@@ -240,7 +238,8 @@ grid.innerHTML = TEAMS.map(t => `
     </div>
     <div class="links">
       <button class="btn primary" type="button" data-present="${t.id}">▶ Presentar</button>
-      <a class="btn" href="${esc(t.presentacion)}" target="_blank" rel="noopener">📄 ${t.formato === 'PPT' ? 'PowerPoint' : 'PDF'} ↗</a>
+      <a class="btn" href="${esc(t.presentacion)}" target="_blank" rel="noopener">📄 Presentación ↗</a>
+      ${t.original ? `<a class="btn" href="${esc(t.original)}" download>⬇ PowerPoint</a>` : ''}
       ${t.video
         ? `<a class="btn" href="${esc(t.video)}" target="_blank" rel="noopener">🎬 Video ↗</a>`
         : `<span class="novideo">Video de soporte no entregado</span>`}
